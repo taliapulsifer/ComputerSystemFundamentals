@@ -1,5 +1,7 @@
 package org.example;
 
+//Represents a job that arrives at the CPU for execution. Stores arrival time, service time, and departure time
+//Tracks execution progress can be places in the Ready Queue waiting for execution
 public class Process implements Comparable<Process> {
     private float arrivalTime;
     private float departureTime;
