@@ -31,41 +31,12 @@ public class Simulator {
 
             switch (currentEvent.getType()) {
                 case ARRIVAL:
-                    handleArrival(currentEvent.getProcess());
+                    scheduler.processArrival(currentEvent);
                     break;
                 case DEPARTURE:
-                    handleDeparture(currentEvent.getProcess());
+                    scheduler.processDeparture(currentEvent);;
                     break;
             }
         }
     }
-
-    private void handleArrival(Process process){
-        scheduler.scheduleDeparture(process);
-        //If the CPU is not busy, run process
-        if(!CPUBusy){
-            CPUBusy = true;
-            scheduler.setTime(scheduler.getCurrentTime() + process.getServiceTime());
-        }
-        //If CPU is busy, add event to the ready queue
-        else {
-            scheduler.addProcessToReadyQueue(process);
-        }
-
-    }
-
-    private void handleDeparture(Process process){
-        scheduler.incrementCompletedProcesses();
-        CPUBusy = false;
-
-        //Check ready queue for waiting processes
-        if(!scheduler.readyQueue.isEmpty()){
-            Process nextProcess = scheduler.getNextProcessFromReadyQueue();
-            CPUBusy = true;
-            scheduler.setTime(scheduler.getCurrentTime() + nextProcess.getServiceTime());
-            scheduler.scheduleDeparture(process);
-
-        }
-    }
-
 }
