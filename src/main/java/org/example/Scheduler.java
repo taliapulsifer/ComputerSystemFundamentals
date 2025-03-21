@@ -8,16 +8,9 @@ public abstract class Scheduler {
 
     PriorityQueue<Event> eventQueue = new PriorityQueue<>();
     PriorityQueue<Process> readyQueue = new PriorityQueue<>();
-    private float currentTime;
-    private float serviceTime;
+    private float currentTime = 0.0f;
+    private int completedProcesses = 0;
 
-    protected float generateArrivalTime(){
-        return 0;
-    }
-
-    protected float generateServiceTime(){
-        return 0.0f;
-    }
 
     public void addEvent(Event e){
         eventQueue.add(e);
@@ -37,17 +30,18 @@ public abstract class Scheduler {
     public void setTime(float time){
         currentTime = time;
     }
-    public void setServiceTime(float time){
-        serviceTime = time;
-    }
-    public float getAvgServiceTime(){
-        return serviceTime;
+    public void incrementCompletedProcesses() {
+        completedProcesses++;
     }
 
-
-
+    public int getCompletedProcesses() {
+        return completedProcesses;
+    }
     public abstract void processArrival(Event event);
 
+    public abstract void scheduleDeparture(Process process);
     public abstract void processDeparture(Event event);
+
+    //This method is called by the Simulation class and holds the logic that is unique to the scheduling algorithm
     public abstract void runSimulation();
 }

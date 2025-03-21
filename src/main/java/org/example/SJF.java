@@ -11,12 +11,17 @@ public class SJF extends Scheduler{
         
     }
 
+
+    @Override
+    public void scheduleDeparture(Process process) {
+
+    }
+
     @Override
     public void processArrival(Event event){
 
     }
-
-     @Override
+    @Override
     public void processDeparture(Event event){
 
     }

@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
+        FCFS fcfs = new FCFS();
+        SJF sjf = new SJF();
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter the average arrival rate for this system: ");
             while (!scanner.hasNextFloat()) {
@@ -27,11 +28,21 @@ public class Main {
                 scanner.next();
             }
             int scheduler = scanner.nextInt();
-
             System.out.println("lambda: " + lambda + " avgServiceTime: " + avgServiceTime + " scheduler: " + scheduler);
+
+            if(scheduler == 0){
+                //FCFS
+                fcfs.runSimulation();
+            }
+            else if( scheduler == 1){
+                //SJF
+                sjf.runSimulation();
+            }
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter numbers.");
         }
+
+
     }
 }

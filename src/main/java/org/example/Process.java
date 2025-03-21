@@ -18,6 +18,14 @@ public class Process implements Comparable<Process> {
     }
 
     //Getters and Setters
+    protected float generateArrivalTime(){
+        return 0;
+    }
+
+    protected float generateServiceTime(){
+        return 0.0f;
+    }
+
     public float getArrivalTime() {
         return arrivalTime;
     }
