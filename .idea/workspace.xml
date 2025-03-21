@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2440762-9e85-4dca-b844-3717f53a428b" name="Changes" comment="Commit">
+    <list default="true" id="c2440762-9e85-4dca-b844-3717f53a428b" name="Changes" comment="Thinking about moving the handleArrival and handleDeparture because the way those things are done differs between the two schedulers (preemptive and non-preemptive)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/FCFS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/FCFS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Process.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Process.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SJF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SJF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Scheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Scheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Simulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Simulator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742242560707</updated>
-      <workItem from="1742242561576" duration="12279000" />
+      <workItem from="1742242561576" duration="14156000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -112,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742491062344</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Thinking about moving the handleArrival and handleDeparture because the way those things are done differs between the two schedulers (preemptive and non-preemptive)">
+      <option name="closed" value="true" />
+      <created>1742594762899</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742594762899</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +124,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit" />
+    <MESSAGE value="Thinking about moving the handleArrival and handleDeparture because the way those things are done differs between the two schedulers (preemptive and non-preemptive)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Thinking about moving the handleArrival and handleDeparture because the way those things are done differs between the two schedulers (preemptive and non-preemptive)" />
   </component>
 </project>
