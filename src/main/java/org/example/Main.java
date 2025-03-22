@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws InterruptedException  {
         
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter the average arrival rate for this system: ");
@@ -46,13 +46,11 @@ public class Main {
             Thread arrivalThread = new Thread(arrivalGenerator);
             //Make sure that the thread is started before the simulation starts
             arrivalThread.start();
-
-            //Create initial event so program doesn't immediately end
-            Process initialProcess = new Process(0.0f, 0.5f, 0); // Example initial process
-            Event initialEvent = new Event(Event.EventType.ARRIVAL, 0.0f, initialProcess);
-            simulator.scheduleEvent(initialEvent);
-
-            simulator.runSimulation();
+            Thread simulatorThread = new Thread(simulator);
+            simulatorThread.start(); // Start the simulation thread
+            arrivalThread.join(); // Wait for the arrival thread to finish
+            simulator.setStop();
+            simulatorThread.join(); // Wait for the arrival thread to finish
 
             printResults(scheduler);
 

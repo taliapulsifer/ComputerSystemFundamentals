@@ -1,7 +1,8 @@
 package org.example;
 
-public class Simulator {
+public class Simulator implements Runnable{
     private Scheduler scheduler;
+    private volatile boolean stop = false;
 
     public Simulator(Scheduler scheduler){
 
@@ -19,9 +20,15 @@ public class Simulator {
         scheduler.addEvent(event);
     }
 
-    public void runSimulation(){
+    public void setStop() {
+        this.stop = true;
+    }
+    
+
+    @Override
+    public void run() {
         //while the event queue is not empty, and we have not reached the process cap of 10,000
-        while(!scheduler.eventQueue.isEmpty() && scheduler.getCompletedProcesses() < 10000){
+        while(! this.stop && scheduler.getCompletedProcesses() < 10000){
             //Retrieves and removes the next event
             Event currentEvent = scheduler.getNextEvent();
 

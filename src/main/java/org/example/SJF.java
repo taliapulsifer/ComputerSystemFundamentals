@@ -1,7 +1,7 @@
 package org.example;
 
 import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 public class SJF extends Scheduler{
     private boolean CPUBusy = false;
@@ -9,7 +9,7 @@ public class SJF extends Scheduler{
     private float remainingServiceTime = 0;
 
     public SJF() {
-        readyQueue = new PriorityQueue<>(Comparator.comparing(Process::getServiceTime));
+        readyQueue = new PriorityBlockingQueue<>(1000, Comparator.comparing(Process::getServiceTime));
     }
 
     @Override
