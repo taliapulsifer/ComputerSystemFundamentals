@@ -28,9 +28,22 @@ public class Simulator implements Runnable{
     @Override
     public void run() {
         //while the event queue is not empty, and we have not reached the process cap of 10,000
-        while(! this.stop && scheduler.getCompletedProcesses() < 10000){
-            //Retrieves and removes the next event
+        while(scheduler.getCompletedProcesses() < 10000){
             Event currentEvent = scheduler.getNextEvent();
+            if(currentEvent == null){
+                if(stop){
+                    System.out.println("Stopping simulation.");
+                    break;
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } // Sleep for a short duration to avoid busy waiting
+                continue;
+            }
+
 
             switch (currentEvent.getType()) {
                 case ARRIVAL:

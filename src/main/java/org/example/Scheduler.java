@@ -17,7 +17,9 @@ public abstract class Scheduler {
     }
     public Event getNextEvent(){
         Event nextEvent = eventQueue.poll();
-        System.out.println("getNextEvent: " + nextEvent.getType() + ", Time: " + nextEvent.getEventTime());
+        if (nextEvent != null) {
+            System.out.println("getNextEvent: " + nextEvent.getType() + ", Time: " + nextEvent.getEventTime());
+        }
         return nextEvent;
 
     }
