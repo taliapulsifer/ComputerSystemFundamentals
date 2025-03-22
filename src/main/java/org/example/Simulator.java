@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.*;
-
 public class Simulator {
-    private boolean CPUBusy;
     private Scheduler scheduler;
 
     public Simulator(Scheduler scheduler){
@@ -15,7 +12,6 @@ public class Simulator {
         //When a departure event occurs, the scheduler selects the next process from the ready queue
         //Stores processes that are waiting for CPU time
         //this.readyQueue = new LinkedList<>();
-        this.CPUBusy = false;
         this.scheduler = scheduler;
     }
 

@@ -7,7 +7,7 @@ public class Process implements Comparable<Process> {
     private float departureTime;
     private float serviceTime;
     private float remainingServiceTime;
-    private int processID;
+    private int processID = 0;
 
     //Constructor
     public Process(float arrivalTime, float serviceTime, int processID){

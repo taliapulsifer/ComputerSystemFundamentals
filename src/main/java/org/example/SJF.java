@@ -7,12 +7,6 @@ public class SJF extends Scheduler{
     private Process currentProcess = null;
 
     @Override
-    public void runSimulation(){
-        
-    }
-
-
-    @Override
     public void scheduleDeparture(Process process) {
 
     }

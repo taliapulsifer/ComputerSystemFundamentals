@@ -3,10 +3,6 @@ package org.example;
 public class FCFS extends Scheduler{
     private boolean CPUBusy = false;
 
-    @Override
-    public void runSimulation(){
-
-    }
 
     @Override
     public void scheduleDeparture(Process process) {
@@ -24,6 +20,8 @@ public class FCFS extends Scheduler{
         if(!CPUBusy){
             CPUBusy = true;
             setTime(getCurrentTime() + process.getServiceTime());
+            //Update busy time so that I can calculate Utilization
+            updateBusyTime(process.getServiceTime());
         }
         //If CPU is busy, add event to the ready queue
         else {

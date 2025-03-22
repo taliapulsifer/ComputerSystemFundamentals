@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         
-        
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter the average arrival rate for this system: ");
             while (!scanner.hasNextFloat()) {
@@ -43,9 +42,11 @@ public class Main {
             }
 
             Simulator simulator = new Simulator(scheduler);
-
-            generateInitialProcesses(simulator, scheduler, lambda);
-
+            ArrivalGenerator arrivalGenerator = new ArrivalGenerator(simulator, scheduler, lambda, avgServiceTime, 100);
+            Thread arrivalThread = new Thread(arrivalGenerator);
+            //Make sure that the thread is started before the simulation starts
+            arrivalThread.start();
+            
             simulator.runSimulation();
 
             printResults(scheduler);
@@ -55,11 +56,12 @@ public class Main {
         }
     }
 
-    private static void generateInitialProcesses(Simulator simulator, Scheduler scheduler, float lambda){
-
-    }
 
     private static void printResults(Scheduler scheduler){
         System.out.println("Completed Processes: " + scheduler.getCompletedProcesses());
+        System.out.println("Average Turnaround Time: " + scheduler.turnaroundTime());
+        System.out.println("Average Ready Queue Length: " + scheduler.readyQueueLength());  
+        System.out.println("Average Utilization: " + (scheduler.getTotalBusyTime() / scheduler.getCompletedProcesses()) * 100 + "%");
+        System.out.println("Throughput: " + scheduler.getCompletedProcesses() / scheduler.getTotalTime() + " processes per time unit");
     }
 }
