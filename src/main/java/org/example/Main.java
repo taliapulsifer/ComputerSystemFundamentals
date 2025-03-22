@@ -46,7 +46,12 @@ public class Main {
             Thread arrivalThread = new Thread(arrivalGenerator);
             //Make sure that the thread is started before the simulation starts
             arrivalThread.start();
-            
+
+            //Create initial event so program doesn't immediately end
+            Process initialProcess = new Process(0.0f, 0.5f, 0); // Example initial process
+            Event initialEvent = new Event(Event.EventType.ARRIVAL, 0.0f, initialProcess);
+            simulator.scheduleEvent(initialEvent);
+
             simulator.runSimulation();
 
             printResults(scheduler);

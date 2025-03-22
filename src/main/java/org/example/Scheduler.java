@@ -12,10 +12,14 @@ public abstract class Scheduler {
     private float busyTime = 0.0f;
 
     public void addEvent(Event e){
+        System.out.println("Adding event to queue: " + e.getType() + ", Time: " + e.getEventTime());
         eventQueue.add(e);
     }
     public Event getNextEvent(){
-        return eventQueue.poll();
+        Event nextEvent = eventQueue.poll();
+        System.out.println("getNextEvent: " + nextEvent.getType() + ", Time: " + nextEvent.getEventTime());
+        return nextEvent;
+
     }
     public void addProcessToReadyQueue(Process p){
         readyQueue.add(p);

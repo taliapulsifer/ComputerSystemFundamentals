@@ -42,5 +42,6 @@ public class FCFS extends Scheduler{
             scheduleDeparture(nextProcess);
 
         }
+        event.getProcess().setDepartureTime(getCurrentTime());
     }
 }
