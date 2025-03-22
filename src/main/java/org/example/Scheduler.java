@@ -1,12 +1,12 @@
 package org.example;
-import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 //Responsible for managing the scheduling of processes. Knows how to
 //handle events, maintain the event queue and implement the specific
 //scheduling algorithm (SJF, FCFS)
 public abstract class Scheduler {
 
-    PriorityQueue<Event> eventQueue = new PriorityQueue<>();
-    PriorityQueue<Process> readyQueue = new PriorityQueue<>();
+    PriorityBlockingQueue<Event> eventQueue = new PriorityBlockingQueue<>();
+    PriorityBlockingQueue<Process> readyQueue = new PriorityBlockingQueue<>();
     private float currentTime = 0.0f;
     private int completedProcesses = 0;
     private float busyTime = 0.0f;
@@ -17,7 +17,9 @@ public abstract class Scheduler {
     }
     public Event getNextEvent(){
         Event nextEvent = eventQueue.poll();
-        System.out.println("getNextEvent: " + nextEvent.getType() + ", Time: " + nextEvent.getEventTime());
+        if (nextEvent != null) {
+            System.out.println("getNextEvent: " + nextEvent.getType() + ", Time: " + nextEvent.getEventTime());
+        }
         return nextEvent;
 
     }
