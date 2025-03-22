@@ -42,7 +42,7 @@ public class Main {
             }
 
             Simulator simulator = new Simulator(scheduler);
-            ArrivalGenerator arrivalGenerator = new ArrivalGenerator(simulator, scheduler, lambda, avgServiceTime, 100);
+            ArrivalGenerator arrivalGenerator = new ArrivalGenerator(simulator, scheduler, lambda, avgServiceTime, 10);
             Thread arrivalThread = new Thread(arrivalGenerator);
             //Make sure that the thread is started before the simulation starts
             arrivalThread.start();
@@ -51,6 +51,14 @@ public class Main {
             arrivalThread.join(); // Wait for the arrival thread to finish
             simulator.setStop();
             simulatorThread.join(); // Wait for the arrival thread to finish
+
+            try {
+                arrivalThread.join(); // Wait for arrivalThread to finish
+            } catch (InterruptedException e) {
+                System.err.println("Main thread interrupted while waiting for arrivalThread: " + e.getMessage());
+                Thread.currentThread().interrupt();
+                return;
+            }
 
             printResults(scheduler);
 
