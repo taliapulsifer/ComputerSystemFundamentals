@@ -1,6 +1,5 @@
 package org.example;
 import java.util.PriorityQueue;
-import java.util.random.*;
 //Responsible for managing the scheduling of processes. Knows how to
 //handle events, maintain the event queue and implement the specific
 //scheduling algorithm (SJF, FCFS)
@@ -10,7 +9,7 @@ public abstract class Scheduler {
     PriorityQueue<Process> readyQueue = new PriorityQueue<>();
     private float currentTime = 0.0f;
     private int completedProcesses = 0;
-
+    private float busyTime = 0.0f;
 
     public void addEvent(Event e){
         eventQueue.add(e);
@@ -33,7 +32,21 @@ public abstract class Scheduler {
     public void incrementCompletedProcesses() {
         completedProcesses++;
     }
-
+    public void updateBusyTime(float time) {
+        busyTime += time;
+    }
+    public float getTotalBusyTime() {
+        return busyTime;
+    }
+    public float turnaroundTime(){
+        return currentTime / completedProcesses;
+    }
+    public float getTotalTime(){
+        return currentTime;
+    }
+    public float readyQueueLength(){
+        return (float)readyQueue.size();
+    }
     public int getCompletedProcesses() {
         return completedProcesses;
     }
@@ -41,7 +54,4 @@ public abstract class Scheduler {
 
     public abstract void scheduleDeparture(Process process);
     public abstract void processDeparture(Event event);
-
-    //This method is called by the Simulation class and holds the logic that is unique to the scheduling algorithm
-    public abstract void runSimulation();
 }

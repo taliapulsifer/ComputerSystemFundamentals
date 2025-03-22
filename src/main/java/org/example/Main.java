@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        FCFS fcfs = new FCFS();
-        SJF sjf = new SJF();
+        
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter the average arrival rate for this system: ");
             while (!scanner.hasNextFloat()) {
@@ -27,22 +26,42 @@ public class Main {
                 System.out.println("Invalid input. Please enter 0 or 1.");
                 scanner.next();
             }
-            int scheduler = scanner.nextInt();
-            System.out.println("lambda: " + lambda + " avgServiceTime: " + avgServiceTime + " scheduler: " + scheduler);
+            int schedulerChoice = scanner.nextInt();
+            System.out.println("lambda: " + lambda + " avgServiceTime: " + avgServiceTime + " scheduler: " + schedulerChoice);
 
-            if(scheduler == 0){
+            Scheduler scheduler;
+            if(schedulerChoice == 0){
                 //FCFS
-                fcfs.runSimulation();
+                scheduler = new FCFS();
             }
-            else if( scheduler == 1){
+            else if( schedulerChoice == 1){
                 //SJF
-                sjf.runSimulation();
+                scheduler = new SJF();
+            } else {
+                throw new IllegalArgumentException("Invalid scheduler choice. Please enter 0 or 1.");
             }
+
+            Simulator simulator = new Simulator(scheduler);
+            ArrivalGenerator arrivalGenerator = new ArrivalGenerator(simulator, scheduler, lambda, avgServiceTime, 100);
+            Thread arrivalThread = new Thread(arrivalGenerator);
+            //Make sure that the thread is started before the simulation starts
+            arrivalThread.start();
+            
+            simulator.runSimulation();
+
+            printResults(scheduler);
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter numbers.");
         }
+    }
 
 
+    private static void printResults(Scheduler scheduler){
+        System.out.println("Completed Processes: " + scheduler.getCompletedProcesses());
+        System.out.println("Average Turnaround Time: " + scheduler.turnaroundTime());
+        System.out.println("Average Ready Queue Length: " + scheduler.readyQueueLength());  
+        System.out.println("Average Utilization: " + (scheduler.getTotalBusyTime() / scheduler.getCompletedProcesses()) * 100 + "%");
+        System.out.println("Throughput: " + scheduler.getCompletedProcesses() / scheduler.getTotalTime() + " processes per time unit");
     }
 }

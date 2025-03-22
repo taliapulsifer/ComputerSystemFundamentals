@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.*;
-
 public class Simulator {
-    private boolean CPUBusy;
     private Scheduler scheduler;
 
     public Simulator(Scheduler scheduler){
@@ -15,7 +12,6 @@ public class Simulator {
         //When a departure event occurs, the scheduler selects the next process from the ready queue
         //Stores processes that are waiting for CPU time
         //this.readyQueue = new LinkedList<>();
-        this.CPUBusy = false;
         this.scheduler = scheduler;
     }
 
@@ -31,41 +27,12 @@ public class Simulator {
 
             switch (currentEvent.getType()) {
                 case ARRIVAL:
-                    handleArrival(currentEvent.getProcess());
+                    scheduler.processArrival(currentEvent);
                     break;
                 case DEPARTURE:
-                    handleDeparture(currentEvent.getProcess());
+                    scheduler.processDeparture(currentEvent);;
                     break;
             }
         }
     }
-
-    private void handleArrival(Process process){
-        scheduler.scheduleDeparture(process);
-        //If the CPU is not busy, run process
-        if(!CPUBusy){
-            CPUBusy = true;
-            scheduler.setTime(scheduler.getCurrentTime() + process.getServiceTime());
-        }
-        //If CPU is busy, add event to the ready queue
-        else {
-            scheduler.addProcessToReadyQueue(process);
-        }
-
-    }
-
-    private void handleDeparture(Process process){
-        scheduler.incrementCompletedProcesses();
-        CPUBusy = false;
-
-        //Check ready queue for waiting processes
-        if(!scheduler.readyQueue.isEmpty()){
-            Process nextProcess = scheduler.getNextProcessFromReadyQueue();
-            CPUBusy = true;
-            scheduler.setTime(scheduler.getCurrentTime() + nextProcess.getServiceTime());
-            scheduler.scheduleDeparture(process);
-
-        }
-    }
-
 }
